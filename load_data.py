@@ -72,8 +72,7 @@ def load_weekly_wages() -> list[list]:
         for row in reader:
             assert len(row) == 23, 'Expected every row to contain 2 elements.'
             # row is a list of strings
-            rate_for_month = []
-            rate_for_month.append(row[0])
+            rate_for_month = [row[0]]
             for i in range(1, 23):
                 rate_for_month.append(float(row[i]))
             row_so_far.append(rate_for_month)
