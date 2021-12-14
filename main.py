@@ -107,13 +107,15 @@ class Root(tk.Tk):
         # Create a button to send information to test_function
         button = tk.Button(
             input_frame, text="ENTER", font=40,
-            command=lambda: self.test_function(selected_start_date.get(),
-                                               selected_end_date.get(), selected_job.get())
+            command=lambda: self.perform_calculations(selected_start_date.get(),
+                                                      selected_end_date.get(), selected_job.get())
         )
         button.place(relx=0.7, relwidth=0.3, relheight=1)
 
-    def test_function(self, start_date: str, end_date: str, occupation: str) -> None:
-        """Runs functions based on output"""
+    def perform_calculations(self, start_date: str, end_date: str, occupation: str) -> None:
+        """Takes selected inputs and calculates the numeric difference and percentage change
+        between every month in start_date and end_date as well as displays a graph showing the
+        Difference between wage and housing cost over the given time period"""
         months = calculations.get_list_of_months(start_date, end_date)
         month_indexes = calculations.find_month_index(start_date, end_date, months)
         if start_date == "Pick A Date to Calculate Output on":
