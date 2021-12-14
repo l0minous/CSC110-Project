@@ -1,6 +1,6 @@
 """CSC110 Fall 2020 Project, Toronto Living Cost Calculator Display Graphs
 
-This Python module contains the program to display the GUI for .
+This Python module contains the program to display the graph.
 
 Copyright and Usage Information
 ===============================

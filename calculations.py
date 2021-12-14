@@ -1,6 +1,6 @@
 """CSC110 Fall 2020 Project, Toronto Living Cost Calculator Calculations
 
-This Python module contains the program to display the GUI for .
+This Python module contains the program to perform calculations on data.
 
 Copyright and Usage Information
 ===============================

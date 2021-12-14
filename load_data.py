@@ -1,10 +1,15 @@
-"""CSC110 Fall 2020 Project, Loading Data from CSV Files
+"""CSC110 Fall 2020 Project, Toronto Living Cost Calculator Loading Data from CSV
 
-This Python module contains the program to load data from the csv files.
+This Python module contains the program to obtain the data from the csv files.
 
 Copyright and Usage Information
 ===============================
-TODO
+This file is provided solely for the personal and private use of The Department of Computer Science
+at the University of Toronto St. George campus. All forms of distribution of this code, whether as
+given or with any changes, are expressly prohibited.
+
+This file is Copyright (c) 2021 Derrick Ken Willis, Sebastian Noel Lie, Diler Zaza and
+Humraj Bhoday.
 """
 import csv
 
