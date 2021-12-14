@@ -13,14 +13,16 @@ Humraj Bhoday.
 """
 import load_data
 
+
 def get_difference(occupation: str, month_gap: dict, start: str, end: str) -> dict:
     """
-    FUNCTION 2B
-    a = wage_cost_gap(occupation, start, end)
-    b = month_to_gap(a, start, end)
-    get_difference(occupation, b, start, end)
-    return dictionary of (left month, right month): (numeric_change, percentage_change)
+    Returns a dictionary with tuples which contain the previous month and the current month as the
+    keys and tuples containing the numeric change in the difference between the monthly wages and
+    the cost of housing as the value pairs.
     """
+    # ACCUMULATOR dict_difference: Accumulator where each key-value pair holds data on the difference between monthly
+    # wages and the cost of housing for the months between the time period.
+    dict_difference = {}
     months = get_list_of_months(start, end)
     indexes = find_month_index(start, end, months)
     filtered_months = [months[x] for x in range(indexes[0], indexes[1] + 1)]
@@ -38,12 +40,8 @@ def get_difference(occupation: str, month_gap: dict, start: str, end: str) -> di
 
 def start_end_difference(start: str, end: str, month_gap: dict) -> tuple:
     """
-    FUNCTION 2C
-    use month_to_gap function for month_gap
-    a = wage_cost_gap(occupation, start, end)
-    b = month_to_gap(a, start, end)
-    start_end_difference(start, end, b)
-    returns a tuple of (gap_difference, gap_percentage_change)
+    Returns a tuple containing the numeric difference and percentage difference between the monthly
+    wages and the cost of housing for the beginning and end of the time period.
     """
     start_gap = month_gap[start]
     end_gap = month_gap[end]
@@ -52,9 +50,10 @@ def start_end_difference(start: str, end: str, month_gap: dict) -> tuple:
     return (gap_difference, gap_percentage_change)
 
 
-def month_to_cost(start: str, end: str):
+def month_to_cost(start: str, end: str) -> dict :
     """
-    FUNCTION 2A
+    Returns a dictionary of the months as the keys and the cost of housing for that month as the
+    value pair.
     """
     costs = calculate_monthly_costs(start, end)
     months = get_list_of_months(start, end)
@@ -69,6 +68,10 @@ def month_to_cost(start: str, end: str):
 
 
 def calculate_monthly_costs(start: str, end: str) -> list:
+    """
+    Returns a list that contains the monthly housing costs throughout the selected time period
+    indicated by the parameters called 'start' and 'end'.
+    """
     monthly_costs = []
     rent = filter_rent_costs(start, end)
     electricity = filter_electricity_costs(start, end)
@@ -85,6 +88,10 @@ def calculate_monthly_costs(start: str, end: str) -> list:
 
 
 def filter_rent_costs(start: str, end: str) -> list:
+    """
+    Returns a list of the rent costs for the months between the chosen time period indicated by the
+    parameters called 'start' and 'end'.
+    """
     rent_data = load_data.load_rent()
     months_list = get_list_of_months(start, end)
 
@@ -99,6 +106,8 @@ def filter_rent_costs(start: str, end: str) -> list:
 
 def filter_electricity_costs(start: str, end: str) -> list:
     """
+    Returns a list of the electricity costs for the months between the chosen time period indicated by the
+    parameters called 'start' and 'end'.
     https://www.oeb.ca/sites/default/files/uploads/Report_Defining_Typical_Elec_Customer_20160414.pdf states that
     the average Ontarian consumes 753 kWh per month
     """
@@ -114,6 +123,10 @@ def filter_electricity_costs(start: str, end: str) -> list:
 
 
 def get_kwh(electricity_data: list, month: str) -> float:
+    """
+    Returns a float which holds the value of how much the consumption of a kilowatt is depending on
+    the month passed by the parameter called 'month'.
+    """
     kwh_cost = int
     if month in get_list_of_months('November 2019', 'February 2020'):
         kwh_cost = electricity_data[0][1]
@@ -134,7 +147,8 @@ def get_kwh(electricity_data: list, month: str) -> float:
 
 def get_monthly_water_cost(start: str, end: str) -> list:
     """
-    The return value of this function assumes that the average canadian uses 329L which is 72.3699 imperial gallons.
+    Returns a list of the water costs for the months between the chosen time period indicated by the
+    parameters called 'start' and 'end'.
     """
     water_data = load_data.load_water_rates()
     months = get_list_of_months(start, end)
@@ -152,6 +166,11 @@ def get_monthly_water_cost(start: str, end: str) -> list:
 
 
 def filter_monthly_wages(occupation: str, start: str, end: str) -> list[float]:
+    """
+    Returns a list of the monthly wages a person with a specific occupation which is passed by
+    the 'occupation' parameter throughout the specified time period indicated by the
+    parameters called 'start' and 'end'.
+    """
     wage_data = load_data.load_weekly_wages()
     occupation_wage_data = []
 
@@ -170,6 +189,11 @@ def filter_monthly_wages(occupation: str, start: str, end: str) -> list[float]:
 
 
 def wage_cost_gap(occupation: str, start: str, end: str) -> list:
+    """
+    Returns a list of the gap between the monthly wages of a person with a specific occupation
+    passed by the parameter 'occupation' throughout a specific time period indicated by the
+    parameters called 'start' and 'end'.
+    """
     wage_list = filter_monthly_wages(occupation, start, end)
     cost_list = calculate_monthly_costs(start, end)
     gap_list = []
@@ -182,6 +206,11 @@ def wage_cost_gap(occupation: str, start: str, end: str) -> list:
 
 
 def month_to_gap(gap: list, start: str, end: str) -> dict:
+    """
+    Returns a dictionary containing the months in the specific time period indicated by the
+    parameters called 'start' and 'end' as the keys and the gap between the monthly wages of a
+    person with a specific occupation passed by the parameter 'occupation' as the value pairs.
+    """
     months = get_list_of_months(start, end)
     indexes = find_month_index(start, end, months)
     filtered_months = [months[x] for x in range(indexes[0], indexes[1] + 1)]
@@ -192,6 +221,9 @@ def month_to_gap(gap: list, start: str, end: str) -> dict:
 
 
 def get_list_of_months(start: str, end: str) -> list[str]:
+    """
+    Returns a list of all the months between November 2019 to August 2021.
+    """
     months_list = []
     rent_data = load_data.load_rent()
 
@@ -202,6 +234,10 @@ def get_list_of_months(start: str, end: str) -> list[str]:
 
 
 def find_month_index(start: str, end: str, months: list) -> tuple[int, int]:
+    """
+    Returns a tuple which holds the indexes of the start month and the end month indicated by the
+    'start' and 'end' parameters in the list of months passed by the parameter 'months'.
+    """
     start_index = int
     end_index = int
 
@@ -223,8 +259,7 @@ if __name__ == '__main__':
     python_ta.check_all(config={
         'allowed-io': ['load_rent', 'load_electricity_costs', 'load_weekly_wages',
                        'load_water_rates'],
-        'extra-imports': ['python_ta.contracts', 'csv', 'tkinter', 'calculations', 'graph',
-                          'tabulate'],
+        'extra-imports': ['python_ta.contracts', 'load_data'],
         'max-line-length': 100,
         'max-args': 6,
         'max-locals': 25,
