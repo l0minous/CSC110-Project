@@ -20,20 +20,21 @@ def get_difference(occupation: str, month_gap: dict, start: str, end: str) -> di
     keys and tuples containing the numeric change in the difference between the monthly wages and
     the cost of housing as the value pairs.
     """
-    # ACCUMULATOR dict_difference: Accumulator where each key-value pair holds data on the difference between monthly
-    # wages and the cost of housing for the months between the time period.
+    # ACCUMULATOR dict_difference: Accumulator where each key-value pair holds data on the
+    # difference between monthly wages and the cost of housing for the months between the time
+    # period.
     dict_difference = {}
     months = get_list_of_months(start, end)
     indexes = find_month_index(start, end, months)
     filtered_months = [months[x] for x in range(indexes[0], indexes[1] + 1)]
-    dict_difference = {}
 
     for x in range(0, len(filtered_months) - 1):
         left_gap = month_gap[filtered_months[x]]
         right_gap = month_gap[filtered_months[x + 1]]
         numeric_change = right_gap - left_gap
         percentage_change = (numeric_change / left_gap) * 100
-        dict_difference[(filtered_months[x], filtered_months[x + 1])] = (numeric_change, percentage_change)
+        dict_difference[(filtered_months[x], filtered_months[x + 1])] = (numeric_change,
+                                                                         percentage_change)
 
     return dict_difference
 
@@ -50,7 +51,7 @@ def start_end_difference(start: str, end: str, month_gap: dict) -> tuple:
     return (gap_difference, gap_percentage_change)
 
 
-def month_to_cost(start: str, end: str) -> dict :
+def month_to_cost(start: str, end: str) -> dict:
     """
     Returns a dictionary of the months as the keys and the cost of housing for that month as the
     value pair.
@@ -106,10 +107,8 @@ def filter_rent_costs(start: str, end: str) -> list:
 
 def filter_electricity_costs(start: str, end: str) -> list:
     """
-    Returns a list of the electricity costs for the months between the chosen time period indicated by the
-    parameters called 'start' and 'end'.
-    https://www.oeb.ca/sites/default/files/uploads/Report_Defining_Typical_Elec_Customer_20160414.pdf states that
-    the average Ontarian consumes 753 kWh per month
+    Returns a list of the electricity costs for the months between the chosen time period indicated
+    by the parameters called 'start' and 'end'.
     """
     electricity_data = list(reversed(load_data.load_electricity_costs()))
     months = get_list_of_months(start, end)
