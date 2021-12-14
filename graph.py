@@ -21,7 +21,7 @@ def display_month_to_gap(dict_1: dict) -> None:
     plt.plot(list(dict_1), y)
     plt.xticks(rotation=90)
     plt.xlabel('Months')
-    plt.ylabel('Difference Between Wage and Living Cost')
+    plt.ylabel('Difference Between Wage and Housing Cost')
     plt.title('Affordability Over Time Period')
     plt.tight_layout()
     plt.show()
