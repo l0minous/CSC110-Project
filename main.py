@@ -34,7 +34,7 @@ class Root(tk.Tk):
     def make_containers(self) -> tuple[tk.Frame, tk.Frame]:
         """Creates all background container widgets for the gui"""
         # Create a Canvas for all widgets to be placed in
-        canvas = tk.Canvas(self, height=500, width=600)
+        canvas = tk.Canvas(self, height=800, width=600)
         canvas.pack()
 
         # Create a Frame widget for input fields to be placed in
@@ -51,7 +51,7 @@ class Root(tk.Tk):
     def create_display(self, display_frame: tk.Frame) -> None:
         """Creates a display to show output information based on inputs"""
         # Create a label Widget
-        self._label = tk.Label(display_frame, bg="black", font=('ariel', 8))
+        self._label = tk.Label(display_frame, font=('ariel', 8))
         self._label.place(relwidth=1, relheight=1)
 
     def create_input_fields(self, input_frame: tk.Frame) -> None:
@@ -131,7 +131,6 @@ class Root(tk.Tk):
         else:
             a = calculations.wage_cost_gap(occupation, start_date, end_date)
             b = calculations.month_to_gap(a, start_date, end_date)
-            graph.display_month_to_gap(b)
             dict_1 = calculations.get_difference(occupation, b, start_date, end_date)
             headers = ['Previous Month', 'Current Month', 'Numeric Change', 'Percentage Change']
             list_1 = []
@@ -147,6 +146,7 @@ class Root(tk.Tk):
                                   f"\n\n\n Numeric Change: {round(tuple_1[0])} " \
                                   f"\n Percentage Change: {round(tuple_1[1])}" \
                                   f"\n Between {start_date} And {end_date}"
+            graph.display_month_to_gap(b)
 
 
 if __name__ == '__main__':

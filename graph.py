@@ -16,6 +16,7 @@ from matplotlib import pyplot as plt
 
 def display_month_to_gap(dict_1: dict) -> None:
     """Displays information of a graph from function month_to_gap"""
+    plt.close()
     y = [dict_1[x] for x in dict_1]
     plt.plot(list(dict_1), y)
     plt.xticks(rotation=90)
